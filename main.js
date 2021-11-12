@@ -1,7 +1,7 @@
 const noble = require('noble-winrt');
 const peripheralIdentifier = "Tracker 0xAB";
-const absorptionConstant = 2.5;
-const oneMeterPower = -55;
+const absorptionConstant = 2.8;
+const oneMeterPower = -57;
 let distance = 0;
 noble.startScanning([], true);
 noble.on('discover', function (peripheral) {
@@ -9,7 +9,7 @@ noble.on('discover', function (peripheral) {
     //     + ":" + peripheral.rssi + ":" + peripheral.connectable);
 
     if (peripheralIdentifier === peripheral.advertisement.localName) {
-        distance = Math.round(Math.pow(10, ((oneMeterPower - peripheral.rssi) / (10 * absorptionConstant))) * 1000) / 1000;
-        console.log(distance + "m");
+        distance = Math.round(Math.pow(10, ((oneMeterPower - peripheral.rssi) / (10 * absorptionConstant))) * 100) / 100;
+        console.log(distance + "m, " + peripheral.rssi + "dBm");
     }
 });
